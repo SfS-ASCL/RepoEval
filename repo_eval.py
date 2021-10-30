@@ -1,5 +1,6 @@
 import argparse
 import hashlib
+import getpass
 import json
 from json.decoder import JSONDecodeError
 import os
@@ -273,7 +274,7 @@ if __name__ == '__main__':
 
     if args.user is None or args.password is None:
         username = input("Username: ")
-        password = input("Password: ")
+        password = getpass.getpass("Password: ")
     else:
         username = args.user
         password = args.password
