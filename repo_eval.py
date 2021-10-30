@@ -284,7 +284,10 @@ if __name__ == '__main__':
         f.write(req.content)
 
     e = OAIEval()
-    errors, stats = e.validate_oai("oai_tmp.xml", evaluation=args.eval, username=username, password=password)
+    if args.eval:
+        errors, stats = e.validate_oai("oai_tmp.xml", evaluation=args.eval, username=username, password=password)
+    else:
+        stats = e.validate_oai("oai_tmp.xml", evaluation=args.eval, username=username, password=password)
     e.dump_error_log(file=args.error)
 
     if args.statistics:
