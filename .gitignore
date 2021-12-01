@@ -120,3 +120,9 @@ schemata/*
 test_files/*
 schema-fetcher-1.0.0.jar
 namespaces.txt
+output/*
+output_test/*
+test_dir/*
+get-pip.py
+affected_cmdis.csv
+not_in_cmdi.csv
