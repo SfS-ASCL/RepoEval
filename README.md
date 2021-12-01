@@ -24,3 +24,10 @@ How to use:
 `$ bash check_checksums.sh TARGET_DIR/ OUTPUT_DIR/` 
 
 Creates `affected_cmdis.cv` (listing CMDIs which `sha1` was not found) and `not_in_cmdi.csv` (files not found in any CMDI)
+
+______________
+
+Validate `OAI.xml`: There is no command-line tool/Python library that can handle the validation of XML files as complex as the `OAI.xml` (to my knowledge). Using `Xerces` (http://xerces.apache.org/xerces-c/), however works and is also used by http://oai.clarin-pl.eu/.
+`xmlValid.sh` contains a sample script in how this can be done:
+
+`$ bash xmlValid.sh -v -n -np -s -f OAI_File` (requires Java to be installed)
