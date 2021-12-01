@@ -128,3 +128,4 @@ affected_cmdis.csv
 not_in_cmdi.csv
 oai_tmp.xml
 sorted.txt
+test_cmdi/*
