@@ -203,46 +203,7 @@ class CreateStatistics :
         with open(file, 'w', encoding="utf-8") as out_f:
             out_f.write(html_code)
 
-
-
-if __name__ == '__main__':
-    """
-    parser = argparse.ArgumentParser(description='Create Statistics HTML Talar/Evaluate existing CMDIs')
-    parser.add_argument("-s", "--statistics", help="Create Statistics HTML",
-                    action="store_true")
-    parser.add_argument("-e", "--eval", help="Evaluate all CMDIs Talar",
-                    action="store_true")
-    parser.add_argument("-o", "--output", help="Output Statistics HTML")
-    parser.add_argument("-l", "--error", help="Output error log")
-    parser.add_argument("-u", "--user", help="Talar username")
-    parser.add_argument("-p", "--password", help="Talar password")
-    args = parser.parse_args()
-
-    if args.user is None or args.password is None:
-        username = input("Username: ")
-        password = getpass.getpass("Password: ")
-    else:
-        username = args.user
-        password = args.password
-
-    req = requests.get("https://talar.sfb833.uni-tuebingen.de/erdora/rest/oai?verb=ListRecords&metadataPrefix=cmdi")
-    with open('oai_tmp.xml', 'wb') as f:
-        f.write(req.content)
-
-    e = OAIEval()
-    if args.eval:
-        errors, stats = e.validate_oai("oai_tmp.xml", evaluation=args.eval, username=username, password=password)
-    else:
-        stats = e.validate_oai("oai_tmp.xml", evaluation=args.eval, username=username, password=password)
-    e.dump_error_log(file=args.error)
-
-    if args.statistics:
-        html_code = create_statistics(stats, errors)
-        write_to_file(html_code, file=args.output)
-
-    os.remove("oai_tmp.xml")
-    """
-    
+if __name__ == '__main__':    
     parser = argparse.ArgumentParser(description='Create Statistics HTML Talar existing CMDIs')
     parser.add_argument("-i", "--input", help="OAI.xml")
     parser.add_argument("-o", "--output", help="Output Statistics HTML/plots directory")
