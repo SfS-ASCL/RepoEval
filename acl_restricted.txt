@@ -33,3 +33,4 @@ restricted; Free for academic                 use, copyright owned by Professor 
 restricted; free for academic,                 but not for commercial use.
 upon request
 Creative Commons Attribution-ShareAlike 3.0
+freely available for non-commercial research use (CC BY-NC-SA Licence)
