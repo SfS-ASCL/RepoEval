@@ -27,6 +27,20 @@ Creates `affected_cmdis.cv` (listing CMDIs which `sha1` was not found) and `not_
 
 ______________
 
+`update_cmdi_with_IDs/` contains a strongly modified, simplified version of the BioDataNER tool.
+
+`cmdi_extractor.py` extracts all authoritative IDs from any `Person`, `Author` or `Organization` component and adds it to a cache.
+
+How to use:
+`$ python cmdi_extractor.py PATH_TO_CACHE PATH_TO_CMDIs --new_cache` (`--new-cache` flag is optional)
+
+`cmdi_updater.py` takes the cache and updates every CMDI with missing authoritative IDs
+
+How to use:
+`$ python cmdi_updater.py PATH_TO_CACHE PATH_TO_CMDIs`
+
+The cache is not a CSV anymore, but a JSON file. IDs outside of VIAF are now supported as well.
+______________
 Validate `OAI.xml`: There is no command-line tool/Python library that can handle the validation of XML files as complex as the `OAI.xml` (to my knowledge). Using `Xerces` (http://xerces.apache.org/xerces-c/), however works and is also used by http://oai.clarin-pl.eu/.
 `xmlValid.sh` contains a sample script in how this can be done:
 
