@@ -61,6 +61,7 @@ class OAIEval:
                 self.login()
                 continue
         self.add_error(f"{url};404", url)
+        print(f"{url};404")
 
 
     def add_error(self, error, cmdi):
@@ -102,6 +103,7 @@ class OAIEval:
    
             if cmdi_page.status_code == 404:
                 self.add_error(f"{cmdi_handle};404", cmdi_handle)
+                print(f"{cmdi_handle};404")
 
             self._validate_resources(cmdi, cmdi_handle, resources)
     
@@ -187,6 +189,7 @@ class OAIEval:
 
             if v is not None and str(calc_v) != str(v) and str(v).strip() != "":
                 self.add_error(f"{res_handle};Checksums wrong;CMDI: {str(v)};Computed: {str(calc_v)} [{k}]", handle)
+                print(f"{res_handle};Checksums wrong;CMDI: {str(v)};Computed: {str(calc_v)} [{k}]")
                 valid = False   
         return valid
 
@@ -246,6 +249,9 @@ if __name__ == '__main__':
 
     e = OAIEval(username=username, password=password)
     errors = e.validate_oai("oai_tmp.xml")
-    e.dump_error_log(file=args.output)
+    print(f"{len(errors)} CMDIs affected")
+    
+    if args.output is not None:
+        e.dump_error_log(file=args.output)
 
     os.remove("oai_tmp.xml")
