@@ -46,6 +46,7 @@ class OAIEval:
                 #print("URL failure")
                 self.login()
                 continue
+        print(f"{url};404")
         self.add_error(f"{url};404", url)
 
 
@@ -86,6 +87,7 @@ class OAIEval:
                 try:
                     redirect_url = requests.head(res_handle, allow_redirects=True)
                 except Exception:
+                    print(f"{res_handle};too many redirects")
                     self.add_error(f"{res_handle};too many redirects", res_handle)
                     continue 
                 
@@ -106,7 +108,7 @@ class OAIEval:
         try:      
             acl_dict = json.loads(r.content)
         except JSONDecodeError:
-            print("JSONDecodeError")
+            print(f"{acl_url};ACL can't be parsed ")
             self.add_error(f"{acl_url};ACL can't be parsed ", cmdi_handle)
             return {"ERROR": ["ACL can't be parsed", str(r.content)]}
             
@@ -120,12 +122,15 @@ def compare_acls(cur_acl_dict, old_acl_dict):
     diff_old_cur = old_set - cur_set
     shared = cur_set.intersection(old_set)
     
+    
     print("Resources added since last check:")
     for diff in diff_cur_old: print(diff)
-    
+    if len(diff_cur_old) == 0: print("-")
+        
     print()
     print("Resources missing from last check:")
     for diff in diff_old_cur: print(diff)
+    if len(diff_old_cur) == 0: print("-")
     
     print()
     print("ACLs that got changed:")
@@ -135,12 +140,13 @@ def compare_acls(cur_acl_dict, old_acl_dict):
         
         if old_acl != cur_acl:
             print(f"{resource} ACL changed:\n    OLD:{old_acl}\n    NEW:{cur_acl}")
+    if len(shared) == 0: print("-")
   
     
 def dump_acl(acl_dict, file="output/acl_dict.json"):
     path = ""
     if '/' in file:
-        path = file.rpartition('/')
+        path = file.rpartition('/')[0]
         dir = os.path.dirname(file)
         if not os.path.exists(dir):
             os.makedirs(dir)
@@ -148,7 +154,7 @@ def dump_acl(acl_dict, file="output/acl_dict.json"):
     with open(file, 'w', encoding="utf-8") as out_f:
         json.dump(acl_dict, out_f)
         
-    with open(f"{path}/acl_dict_{datetime.today().strftime('%Y-%m-%d')}", 'w', encoding="utf-8") as out_f:
+    with open(f"{path}/acl_dict_{datetime.today().strftime('%Y-%m-%d')}.json", 'w', encoding="utf-8") as out_f:
         json.dump(acl_dict, out_f)
         
         

@@ -188,8 +188,8 @@ class OAIEval:
             calc_v = calc_checksums[k]
 
             if v is not None and str(calc_v) != str(v) and str(v).strip() != "":
-                self.add_error(f"{res_handle};Checksums wrong;CMDI: {str(v)};Computed: {str(calc_v)} [{k}]", handle)
-                print(f"{res_handle};Checksums wrong;CMDI: {str(v)};Computed: {str(calc_v)} [{k}]")
+                self.add_error(f"{res_handle};Checksums wrong;CMDI: {str(v)};Computed: {str(calc_v)};[{k}]", handle)
+                print(f"{res_handle};Checksums wrong;CMDI: {str(v)};Computed: {str(calc_v)};[{k}]")
                 valid = False   
         return valid
 

@@ -42,7 +42,7 @@ def get_name(node):
                     name += child.text
     if name == "":
         return None
-    return name
+    return name.strip()
 
 def add_name(cache, name):
     if name not in cache and name is not None:
@@ -54,7 +54,6 @@ def cmdi_to_cache(cmdi, cache):
         print(tag)
         for entity in cmdi.xpath(f".//*[local-name()='{tag}']"):
             name = get_name(entity)
-            print(name)
             add_name(cache, name)
             for auth_id in entity.xpath(".//*[local-name()='AuthoritativeID']"):
                 a_id = auth_id.xpath("./*[local-name()='id']")
