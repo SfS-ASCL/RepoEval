@@ -1,7 +1,6 @@
 from cmdi_extractor import load_cache, read_cmdi, get_name
 from unicodedata import name
 from lxml import etree as ET
-from entity_cache import EntityCache
 import argparse
 import os
 

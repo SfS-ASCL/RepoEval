@@ -1,6 +1,5 @@
 #import xml.etree.ElementTree as ET
 from lxml import etree as ET
-from entity_cache import EntityCache
 import json
 import re
 import argparse
