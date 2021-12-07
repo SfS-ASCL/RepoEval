@@ -65,9 +65,13 @@ class OAIEval:
 
 
     def add_error(self, error, cmdi):
-        if self.errors.get(cmdi) is None:
-            self.errors[cmdi] = []
-        self.errors[cmdi].append(error)
+        if '@' in cmdi:
+            cmdi_handle = cmdi.split('@')[0]
+        else:
+            cmdi_handle = cmdi
+        if self.errors.get(cmdi_handle) is None:
+            self.errors[cmdi_handle] = []
+        self.errors[cmdi_handle].append(error)
 
     def add_mimetype(self, mimetype, size):
         if self.mimetypes.get(mimetype) is None:
@@ -188,8 +192,8 @@ class OAIEval:
             calc_v = calc_checksums[k]
 
             if v is not None and str(calc_v) != str(v) and str(v).strip() != "":
-                self.add_error(f"{res_handle};Checksums wrong;CMDI: {str(v)};Computed: {str(calc_v)};[{k}]", handle)
-                print(f"{res_handle};Checksums wrong;CMDI: {str(v)};Computed: {str(calc_v)};[{k}]")
+                self.add_error(f"{res_handle};{k};CMDI: {str(v)};Computed: {str(calc_v)}", handle)
+                print(f"{res_handle};{k};CMDI: {str(v)};Computed: {str(calc_v)}]")
                 valid = False   
         return valid
 
